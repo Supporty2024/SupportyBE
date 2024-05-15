@@ -3,6 +3,7 @@
 const express = require("express"),
   app = express(),
   router = express.Router(),
+  session = require("express-session"),
 
   methodOverride = require("method-override");
 
@@ -12,6 +13,13 @@ testDatabaseConnection();
 app.set("port", process.env.PORT || 80);
 
 app.use("/",router)
+
+// 세션 설정
+app.use(session({
+  secret: 'W23@9aP#6GnRq$8sL5Tz',
+  resave: false,
+  saveUninitialized: true
+}));
 
 const drugscontroller = require("./controllers/drugscontroller");
 

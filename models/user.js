@@ -1,23 +1,9 @@
 // 랜덤 닉네임 생성 함수
-const {DataTypes} = require('sequelize');
-const {sequelize} = require('../utils/database');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../utils/database'); //원래는 sequelize
 const bcrypt = require('bcrypt');
 
-// async function printUsers() {
-//     try {
-//         // User 테이블의 모든 레코드 가져오기
-//         const users = await User.findAll();
-
-//         // 레코드를 순회하며 콘솔에 출력
-//         users.forEach(user => {
-//             console.log(user.toJSON()); // 레코드를 JSON 형식으로 출력
-//         });
-//     } catch (error) {
-//         console.error('Error printing users:', error);
-//     }
-// }
-
-
+//랜덤 닉네임 생성
 function generateRandomNickname() {
     const adjectives = ['행복한', '멋있는', '똑똑한', '용기있는', '침착한', '행운의', '햇살의', '귀여운', '진지한', '여유로운'];
     const nouns = ['고양이', '개', '펭귄', '돌고래', '사자', '호랑이', '고슴도치', '꿀벌', '판다', '코알라'];
@@ -63,6 +49,7 @@ const User = sequelize.define('User', {
     }
 })();
 
+//회원가입 함수
 async function signup(id, passwd) {
     try {
         const randomNickname = generateRandomNickname();
@@ -78,6 +65,7 @@ async function signup(id, passwd) {
     }
 }
 
+//로그인 함수
 async function login(id, passwd) {
     try {
         if(!id) {
@@ -103,6 +91,24 @@ async function login(id, passwd) {
     }
 }
 
+//회원탈퇴 함수
+async function deleteId(id) {
+    try{
+     console.log("deleteID 컨트롤러 불림");
+      const user = await User.findOne({ where: { id } });
+      if (!user) {
+        throw new Error('User not found');
+      }
+      await user.destroy({
+        truncate:true,
+      });
+      console.log("회원삭제 완료");
+    } catch (error) {
+      console.error('Error deleting user', error);
+      throw error;
+    }
+  }
+
 module.exports = {
-    signup, login
+    signup, login, deleteId
 };
