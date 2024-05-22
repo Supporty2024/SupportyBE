@@ -95,10 +95,12 @@ async function login(id, passwd) {
 async function deleteId(id) {
     try{
      console.log("deleteID 컨트롤러 불림");
+     //console.log(id);
       const user = await User.findOne({ where: { id } });
       if (!user) {
         throw new Error('User not found');
       }
+      else {console.log("유저는 있음");}
       await user.destroy({
         truncate:true,
       });
