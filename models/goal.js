@@ -2,6 +2,13 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../utils/database');
 
 const Goal = sequelize.define('Goal', {
+
+  id: {
+    type:DataTypes.STRING(50),
+    primaryKey: true,
+    allowNull: false
+  },
+
   goalId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -28,6 +35,9 @@ const Goal = sequelize.define('Goal', {
     type: DataTypes.DATE,
     allowNull: false
   }
+}, {
+  tableName: 'Goals',
+  timestamps: false  // sequelize에서 자동으로 생성되는 createdAt, updatedAt 생성 방지
 });
 
 
@@ -40,12 +50,12 @@ const Goal = sequelize.define('Goal', {
   }
 })();
 
-// 목표 생성(추가) 함수
-async function createGoal(id, goalTitle, goalContent) {
+// 목표 생성 함수
+async function createGoal(id, goalId, goalTitle, goalContent, isAchieved, goalDate) {
   try {
-    const goalId = generateRandomGoalId();
-    const isAchieved = false; // 기본값으로 false 설정
-    const goalDate = new Date();
+    //const goalId = generateRandomGoalId();
+    //const isAchieved = false; // 기본값으로 false 설정
+    //const goalDate = new Date();
 
     const goal = await Goal.create({
       id: id,
@@ -57,6 +67,7 @@ async function createGoal(id, goalTitle, goalContent) {
      });
 
      // 목표 생성 성공 시
+     console.log("목표 생성 성공:", goal);
      return goal;
   } catch (error) {
     console.error("Error creating goal:", error);
@@ -65,14 +76,20 @@ async function createGoal(id, goalTitle, goalContent) {
 }
 
 // 목표 삭제 함수
-async function deleteGoal(goalId) {
+async function deleteGoal(id, goalId) {
   try {
     const result = await Goal.destroy({
       where: {
+        id: id,
         goalId: goalId
       }
     });
-    return result; // 삭제된 행 수 반환
+    if (result === 0) {
+      console.log('목표를 찾을 수 없음');
+    } else {
+      console.log('목표 삭제 성공');
+    }
+    return result;
   } catch (error) {
     console.error("Error deleting goal:", error);
     throw error;
@@ -80,16 +97,32 @@ async function deleteGoal(goalId) {
 }
 
 // 목표 수정 함수
-async function updateGoal(goalId, updatedFields) {
+async function updateGoal(id, goalId, updatedFields) {
   try {
     const result = await Goal.update(updatedFields, {
       where: {
+        id: id,
         goalId: goalId
       }
     });
     return result; // 수정된 행 수 반환
   } catch (error) {
     console.error("Error updating goal:", error);
+    throw error;
+  }
+}
+
+// 목표 조회 함수
+async function getGoals(id) {
+  try {
+    const goals = await Goal.findAll({
+      where: {
+        id
+      }
+    });
+    return goals;
+  } catch (error) {
+    console.error("Error retrieving goals:", error);
     throw error;
   }
 }
@@ -106,3 +139,6 @@ function generateRandomGoalId() {
   }
   return result;
 }
+
+module.exports = {
+  Goal, createGoal, deleteGoal, updateGoal, getGoals };

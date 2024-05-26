@@ -31,7 +31,7 @@ app.use("/user", userRoute);
 
 router.use(
   methodOverride("_method", {
-    methods: ["POST", "GET"]
+    methods: ["POST", "GET", "PATCH", "DELETE"]
   })
 );
 
@@ -44,8 +44,8 @@ router.use(express.json());
 
 // 목표 라우터
 const goalRoute = require('./routes/goalRoute');
-
 app.use("/goal", goalRoute);
+
 
 // app.get("/", (req,res)=> {
 //   res.send("복용약 page home");
@@ -55,8 +55,6 @@ app.use("/goal", goalRoute);
 // router.get("/drugs/record",drugscontroller.showTodayDrugRecord);
 // router.get("/drugs/entire/record",drugscontroller.showDrugRecord);
 // router.get("/drugs/info",drugscontroller.showDrugInfo);
-
-
 
 // // 목표
 // const errorHandler = require('./middlewares/errorMiddleware');
