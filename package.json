@@ -4,7 +4,8 @@
   "description": "supporty backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,10 +18,15 @@
   },
   "homepage": "https://github.com/hyerim0992/SupportyBE#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "http-status-codes": "^2.3.0",
+    "lru-cache": "^10.2.0",
     "method-override": "^3.0.0",
-    "mysql": "^2.18.1"
+    "mysql2": "^3.0.0",
+    "sequelize": "^5.22.5"
   }
 }
