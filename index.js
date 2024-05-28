@@ -21,7 +21,6 @@ app.use(session({
   saveUninitialized: true
 }));
 
-const drugscontroller = require("./controllers/drugscontroller");
 
 // 회원가입 라우터
 const userRoute = require("./routes/userRoute");
