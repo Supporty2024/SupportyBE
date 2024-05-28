@@ -2,17 +2,14 @@
 
 const express = require("express"),
   app = express(),
-  router = express.Router(),
   session = require("express-session"),
-
+  router = express.Router(),
   methodOverride = require("method-override");
 
 const { testDatabaseConnection } = require('./utils/database');
 testDatabaseConnection();
 
 app.set("port", process.env.PORT || 80);
-
-app.use("/",router)
 
 // 세션 설정
 app.use(session({
