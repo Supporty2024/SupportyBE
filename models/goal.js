@@ -113,11 +113,12 @@ async function updateGoal(id, goalId, updatedFields) {
 }
 
 // 목표 조회 함수
-async function getGoals(id) {
+async function getGoals(id, date) {
   try {
     const goals = await Goal.findAll({
       where: {
-        id
+        id,
+        goalDate: date
       }
     });
     return goals;

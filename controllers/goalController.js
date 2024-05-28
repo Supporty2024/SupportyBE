@@ -22,6 +22,7 @@ async function createGoalController(req, res) {
 async function updateGoalController(req, res) {
   const { id, goalId } = req.query;
   const updateFields = req.body; // 클라이언트에서 전송한 수정된 필드들
+  console.log('updateGoalController 호출:', 'id:', id, 'goalId:', goalId);
 
   try {
     const result = await updateGoal(id, goalId, updateFields);
@@ -60,12 +61,15 @@ async function deleteGoalController(req, res) {
 
 // 목표 조회 컨트롤러
 async function getGoalsController(req, res) {
-  const { id } = req.query;
+  const { id, goalDate } = req.query;
+  console.log('getGoalsController 호출:', 'id:', id, 'goalDate:', goalDate);
   try {
-    const goals = await getGoals(id);
+    const goals = await getGoals(id, goalDate);
     res.status(200).json(goals);
+    console.log('해당 날짜 목표 조회 성공');
   } catch (error) {
     res.status(500).json ({ message: 'Error retrieving goals', error: error.message });
+    console.log('해당 날짜 목표 조회 실패');
   }
 }
 
