@@ -20,13 +20,10 @@ async function loginController(req, res) {
   const { id, passwd } = req.body;
   try {
     const user = await login(id, passwd);
-    //console.log('User registered successfully:', user);
+    console.log('User registered successfully:', user);
     if (!user) {
       res.status(404).json({ message: 'User not found' });
     } else {
-      //세션에 user 정보 저장
-      req.session.userId = user.id;
-      console.log(req.session.userId);
       res.status(200).json({ message: 'User logged in successfully', user});
     }
   } catch (error) {

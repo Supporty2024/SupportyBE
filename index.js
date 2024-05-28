@@ -2,7 +2,6 @@
 
 const express = require("express"),
   app = express(),
-  session = require("express-session"),
   router = express.Router(),
   methodOverride = require("method-override");
 
@@ -10,14 +9,6 @@ const { testDatabaseConnection } = require('./utils/database');
 testDatabaseConnection();
 
 app.set("port", process.env.PORT || 80);
-
-// 세션 설정
-app.use(session({
-  secret: 'W23@9aP#6GnRq$8sL5Tz',
-  resave: false,
-  saveUninitialized: true
-}));
-
 
 // 회원가입 라우터
 const userRoute = require("./routes/userRoute");
