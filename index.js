@@ -2,27 +2,20 @@
 
 const express = require("express"),
   app = express(),
-  session = require("express-session"),
   router = express.Router(),
   methodOverride = require("method-override");
 
 const { testDatabaseConnection } = require('./utils/database');
 testDatabaseConnection();
 
-app.set("port", process.env.PORT || 80);
+router.use(express.json());
+app.use(express.json());
 
-// 세션 설정
-app.use(session({
-  secret: 'W23@9aP#6GnRq$8sL5Tz',
-  resave: false,
-  saveUninitialized: true
-}));
-
-
-// 회원가입 라우터
-const userRoute = require("./routes/userRoute");
-
-app.use("/user", userRoute);
+router.use(
+  express.urlencoded({
+    extended: false
+  })
+);
 
 
 router.use(
@@ -31,12 +24,18 @@ router.use(
   })
 );
 
-router.use(
-  express.urlencoded({
-    extended: false
-  })
-);
-router.use(express.json());
+
+app.set("port", process.env.PORT || 80);
+
+// 회원가입 라우터
+const userRoute = require("./routes/userRoute");
+
+app.use("/user", userRoute);
+
+// 다이어리 라우터
+const diaryRoute = require("./routes/diaryRoute");
+
+app.use("/diary", diaryRoute);
 
 // 목표 라우터
 const goalRoute = require('./routes/goalRoute');

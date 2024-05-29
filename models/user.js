@@ -65,6 +65,20 @@ async function signup(id, passwd) {
     }
 }
 
+async function checkId(id) {
+    try {
+        console.log('checkid');
+        const user = await User.findOne({ where: { id } });
+        console.log('checkId 함수 호출됨');
+        console.log('user:', user);
+        return !user;
+    } catch (error) {
+        console.error('중복체크 에러:', error);
+        throw error;
+    }
+}
+
+
 //로그인 함수
 async function login(id, passwd) {
     try {
@@ -112,5 +126,5 @@ async function deleteId(id) {
   }
 
 module.exports = {
-    signup, login, deleteId
+    signup, login, deleteId, checkId
 };
