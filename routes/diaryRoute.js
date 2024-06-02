@@ -9,7 +9,9 @@ router.get('/feelings/mid', diaryController.getMidFeelings);
 router.get('/feelings/small', diaryController.getSmallFeelings);
 
 
-//router.post('/posting', diaryController.signupController);
+router.post('/posting', diaryController.postDiary);
+
+router.get('/postingList', diaryController.postingList);
 
 
 module.exports = router;

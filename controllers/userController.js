@@ -3,7 +3,7 @@
 const { signup } = require('../models/user');
 const { login } = require('../models/user');
 const { deleteId } = require('../models/user');
-const {checkId} = require('../models/user');
+const { checkId } = require('../models/user');
 
 // 회원가입 컨트롤러
 async function signupController(req, res) {
