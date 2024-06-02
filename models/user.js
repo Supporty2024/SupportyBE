@@ -65,6 +65,7 @@ async function signup(id, passwd) {
     }
 }
 
+//아이디 중복 함수
 async function checkId(id) {
     try {
         console.log('checkid');
