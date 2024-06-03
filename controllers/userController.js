@@ -59,6 +59,5 @@ async function deleteController(req, res) {
 
 module.exports = {
   signupController, checkIdController,
-   loginController, logoutController,
-  deleteController
+   loginController, deleteController
 };

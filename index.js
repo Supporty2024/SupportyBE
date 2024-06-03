@@ -23,15 +23,6 @@ router.use(
   })
 );
 
-
-// 세션 설정
-app.use(session({
-  secret: 'W23@9aP#6GnRq$8sL5Tz',
-  resave: false,
-  saveUninitialized: true
-}));
-
-
 app.set("port", process.env.PORT || 80);
 
 // 회원가입 라우터
