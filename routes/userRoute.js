@@ -6,8 +6,6 @@ router.post('/signup', userController.signupController);
 
 router.post('/login', userController.loginController);
 
-router.get('/logout', userController.logoutController);
-
 router.get('/checkId', userController.checkIdController);
 
 router.delete('/delete', userController.deleteController);
