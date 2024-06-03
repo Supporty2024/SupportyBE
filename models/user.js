@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 //랜덤 닉네임 생성
 function generateRandomNickname() {
     const adjectives = ['행복한', '멋있는', '똑똑한', '용기있는', '침착한', '행운의', '햇살의', '귀여운', '진지한', '여유로운'];
-    const nouns = ['고양이', '개', '펭귄', '돌고래', '사자', '호랑이', '고슴도치', '꿀벌', '판다', '코알라'];
+    const nouns = ['고양이', '강아지', '펭귄', '돌고래', '사자', '호랑이', '고슴도치', '꿀벌', '판다', '코알라'];
 
     const randomAdjectiveIndex = Math.floor(Math.random() * adjectives.length);
     const randomNounIndex = Math.floor(Math.random() * nouns.length);
@@ -14,7 +14,7 @@ function generateRandomNickname() {
     const randomAdjective = adjectives[randomAdjectiveIndex];
     const randomNoun = nouns[randomNounIndex];
 
-    const randomNickname = randomAdjective + randomNoun;
+    const randomNickname = randomAdjective + " " + randomNoun;
     return randomNickname;
 }
 
