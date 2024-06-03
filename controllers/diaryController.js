@@ -1,6 +1,5 @@
 const { BigFeeling, MidFeeling, SmallFeeling } = require('../models/feeling');
-const { posting } = require('../models/diary');
-const { listPosting } = require('../models/diary');
+const { posting, listPosting, editPosting, diaryDelete } = require('../models/diary');
 
 // BigFeeling 은 전부 다 보내줌
 const getFeelings = async (req, res) => {
@@ -76,6 +75,24 @@ async function postDiary(req, res) {
     }
 }
 
+async function editDiary(req, res) {
+    const {
+        id, diary_date, diary_content,
+        big_feeling, mid_feeling, small_feeling
+    } = req.body;
+    try {
+        const diary = await editPosting(id, diary_date, diary_content, big_feeling, mid_feeling, small_feeling);
+        if(diary == null) {
+            res.status(404).json({message: "수정할 수 없음"})
+        }
+        else {res.status(200).json(diary);}
+    } catch(error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
+//일기 목록들 보여주는 함수 부르는 컨트롤러
 async function postingList(req,res) {
     const { id } = req.query;
 
@@ -88,5 +105,18 @@ async function postingList(req,res) {
     }
 }
 
+async function deleteDiary(req, res) {
+    const { id, diary_date } = req.query;
 
-module.exports = { getFeelings, getMidFeelings, getSmallFeelings, postDiary, postingList };
+    try {
+        await diaryDelete(id, diary_date);
+        res.status(200).send("일기 삭제 성공");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("일기 삭제 실패");
+    }
+}
+
+module.exports = { getFeelings, getMidFeelings, getSmallFeelings, 
+    postDiary, editDiary, postingList,
+    deleteDiary };
