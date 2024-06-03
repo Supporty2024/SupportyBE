@@ -46,17 +46,6 @@ async function loginController(req, res) {
   }
 }
 
-//로그아웃 컨트롤러
-async function logoutController(req, res) {
-  // 세션 삭제
-  req.session.destroy((err) => {
-    if (err) {
-      res.status(500).json({ message: 'Error logging out', error: err.message });
-    } else {
-      res.status(200).json({ message: 'User logged out successfully' });
-    }
-  });
-}
 //회원탈퇴 컨트롤러
 async function deleteController(req, res) {
   const { id } = req.query;
