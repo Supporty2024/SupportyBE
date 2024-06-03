@@ -65,6 +65,21 @@ async function signup(id, passwd) {
     }
 }
 
+//아이디 중복 함수
+async function checkId(id) {
+    try {
+        console.log('checkid');
+        const user = await User.findOne({ where: { id } });
+        console.log('checkId 함수 호출됨');
+        console.log('user:', user);
+        return !user;
+    } catch (error) {
+        console.error('중복체크 에러:', error);
+        throw error;
+    }
+}
+
+
 //로그인 함수
 async function login(id, passwd) {
     try {
@@ -95,10 +110,12 @@ async function login(id, passwd) {
 async function deleteId(id) {
     try{
      console.log("deleteID 컨트롤러 불림");
+     //console.log(id);
       const user = await User.findOne({ where: { id } });
       if (!user) {
         throw new Error('User not found');
       }
+      else {console.log("유저는 있음");}
       await user.destroy({
         truncate:true,
       });
@@ -110,5 +127,5 @@ async function deleteId(id) {
   }
 
 module.exports = {
-    signup, login, deleteId
+    signup, login, deleteId, checkId
 };
