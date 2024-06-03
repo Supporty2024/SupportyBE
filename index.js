@@ -14,6 +14,14 @@ app.set("port", process.env.PORT || 80);
 
 app.use("/",router)
 
+router.use(
+  express.urlencoded({
+    extended: false
+  })
+);
+router.use(express.json());
+//app.use(express.json());
+
 // 세션 설정
 app.use(session({
   secret: 'W23@9aP#6GnRq$8sL5Tz',
@@ -34,16 +42,15 @@ router.use(
   })
 );
 
-router.use(
-  express.urlencoded({
-    extended: false
-  })
-);
-router.use(express.json());
+
 
 // 목표 라우터
 const goalRoute = require('./routes/goalRoute');
 app.use("/goal", goalRoute);
+
+// 진료 라우터
+const treatmentRoute = require('./routes/treatmentRoute');
+app.use("/treatment", treatmentRoute);
 
 
 module.exports = router;

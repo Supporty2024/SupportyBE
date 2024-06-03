@@ -28,6 +28,7 @@ async function updateGoalController(req, res) {
     const result = await updateGoal(id, goalId, updateFields);
     if (result[0] === 1) {
       res.status(200).json({ message: 'Goal updated successfully' });
+      console.log('updateFields: ', updateFields);
       console.log('목표 수정 성공..');
     } else {
       res.status(404).json({ message: 'Goal not found' });
